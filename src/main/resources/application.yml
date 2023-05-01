@@ -1,0 +1,6 @@
+spring:
+  rabbitmq:
+    host: docker-pool.localdomain
+    port: 5673
+    username: user
+    password: pass
