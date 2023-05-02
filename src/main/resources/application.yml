@@ -1,6 +1,7 @@
-spring:
-  rabbitmq:
-    host: docker-pool.localdomain
-    port: 5673
-    username: user
-    password: pass
+orders:
+  queue:
+    host: ${QHOST:docker-pool.localdomain}
+    port: ${QPORT:5673}
+    passwd: ${QPASSWD:pass}
+    user: ${QUSR:user}
+    queue-name: ${QNAME:orderqueue}
