@@ -5,3 +5,6 @@ orders:
     passwd: ${QPASSWD:pass}
     user: ${QUSR:user}
     queue-name: ${QNAME:orderqueue}
+  services:
+    address-host: ${ADDR_HOST:http://localhost:9001/address}
+    cc-host: ${CC_HOST:http://localhost:9002/creditcard}
