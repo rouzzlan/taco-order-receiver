@@ -1,4 +1,4 @@
-package com.falcontech.orderreceiver.queue;
+package com.falcontech.orderreceiver.services.queue.queue;
 
 import com.falcontech.orderreceiver.model.queue.Order;
 import com.fasterxml.jackson.core.JsonProcessingException;
