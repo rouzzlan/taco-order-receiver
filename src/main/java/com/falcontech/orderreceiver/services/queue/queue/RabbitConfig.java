@@ -1,4 +1,4 @@
-package com.falcontech.orderreceiver.queue;
+package com.falcontech.orderreceiver.services.queue.queue;
 
 import com.falcontech.orderreceiver.config.properties.QueueProps;
 import com.rabbitmq.client.Connection;
