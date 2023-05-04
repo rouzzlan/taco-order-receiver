@@ -1,6 +1,7 @@
 package com.falcontech.orderreceiver.services.queue.queue;
 
 import com.falcontech.orderreceiver.model.queue.Order;
+import com.falcontech.orderreceiver.services.remote.RESTServices;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rabbitmq.client.Connection;
@@ -24,6 +25,7 @@ public class OrderService {
   @Autowired private Mono<Connection> connectionMono;
 
   final Receiver receiver;
+  @Autowired private RESTServices restServices;
 
   OrderService(Receiver receiver) {
     this.receiver = receiver;
@@ -55,11 +57,11 @@ public class OrderService {
               // 2. map json to Order object
               try {
                 order = mapper.readValue(json, Order.class);
-                System.out.println(order.getName());
-                /*
-                    Business logic
-                     ...
-                */
+                restServices.getCCInfo(order).subscribe(order1 -> {
+                    restServices.getAddr(order1).subscribe(order2 -> {
+                        System.out.println(order2.toString());
+                    });
+                });
 
               } catch (JsonProcessingException e) {
                 e.printStackTrace();
