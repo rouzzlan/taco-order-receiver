@@ -1,6 +1,7 @@
 package com.falcontech.orderreceiver.services.queue.queue;
 
 import com.falcontech.orderreceiver.model.queue.Order;
+import com.falcontech.orderreceiver.repo.OrderRepository;
 import com.falcontech.orderreceiver.services.remote.RESTServices;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,12 +24,14 @@ public class OrderService {
 
   // Connection to RabbitMQ
   @Autowired private Mono<Connection> connectionMono;
-
-  final Receiver receiver;
   @Autowired private RESTServices restServices;
 
-  OrderService(Receiver receiver) {
+  final Receiver receiver;
+  final OrderRepository orderRepository;
+
+  OrderService(Receiver receiver, OrderRepository orderRepository) {
     this.receiver = receiver;
+    this.orderRepository = orderRepository;
   }
 
   // Listen to RabbitMQ as soon as this service is up
@@ -57,11 +60,20 @@ public class OrderService {
               // 2. map json to Order object
               try {
                 order = mapper.readValue(json, Order.class);
-                restServices.getCCInfo(order).subscribe(order1 -> {
-                    restServices.getAddr(order1).subscribe(order2 -> {
-                        System.out.println(order2.toString());
-                    });
-                });
+                restServices
+                    .getCCInfo(order)
+                    .subscribe(
+                        order1 -> {
+                          restServices
+                              .getAddr(order1)
+                              .subscribe(
+                                  order2 -> {
+                                    System.out.println(order2.toString());
+                                    orderRepository.save(order2.toMongoObject()).subscribe(order3 -> {
+                                        System.out.println("order with ID " + order3.getId() + " saved");
+                                    });
+                                  });
+                        });
 
               } catch (JsonProcessingException e) {
                 e.printStackTrace();

@@ -8,3 +8,11 @@ orders:
   services:
     address-host: ${ADDR_HOST:http://localhost:9001/address}
     cc-host: ${CC_HOST:http://localhost:9002/creditcard}
+spring:
+  data:
+    mongodb:
+      database: ${DB_NAME:OrderDB}
+      host: ${DB_HOST:docker-pool.localdomain}
+      port: ${DB_PORT:27020}
+      username: ${DB_USR:rouslan}
+      password: ${DB_PASSWD:50m9FiD3}
