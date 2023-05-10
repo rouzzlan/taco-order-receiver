@@ -27,9 +27,9 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
+//    testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
     testImplementation 'io.projectreactor:reactor-test'
-    testImplementation 'org.springframework.amqp:spring-rabbit-test'
+//    testImplementation 'org.springframework.amqp:spring-rabbit-test'
     // https://mvnrepository.com/artifact/io.projectreactor.rabbitmq/reactor-rabbitmq
     implementation group: 'io.projectreactor.rabbitmq', name: 'reactor-rabbitmq', version: '1.5.6'
     // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
@@ -43,4 +43,16 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+
+tasks.named("bootBuildImage") {
+    imageName = "harbour.739.net/taco-cloud/${project.name}:${project.version}"
+    publish = true
+    docker {
+        publishRegistry {
+            username = "rouslan"
+            password = "50m9FiD3"
+        }
+    }
 }
