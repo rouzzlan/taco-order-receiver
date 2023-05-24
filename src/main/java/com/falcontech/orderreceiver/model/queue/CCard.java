@@ -4,7 +4,8 @@ import lombok.Data;
 
 @Data
 public class CCard {
-  private String ccNumber;
-  private String ccExpiration;
+  private String number;
+  private String expiration;
   private Integer cvv;
+  private String owner;
 }

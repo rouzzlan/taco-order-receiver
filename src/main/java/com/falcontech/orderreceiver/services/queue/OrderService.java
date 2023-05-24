@@ -1,4 +1,4 @@
-package com.falcontech.orderreceiver.services.queue.queue;
+package com.falcontech.orderreceiver.services.queue;
 
 import com.falcontech.orderreceiver.model.queue.Order;
 import com.falcontech.orderreceiver.repo.OrderRepository;

@@ -1,7 +1,7 @@
 orders:
   queue:
     host: ${QHOST:docker-pool.localdomain}
-    port: ${QPORT:5673}
+    port: ${QPORT:5672}
     passwd: ${QPASSWD:pass}
     user: ${QUSR:user}
     queue-name: ${QNAME:orderqueue}

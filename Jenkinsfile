@@ -12,6 +12,11 @@ pipeline {
             }
         }
         stage('Build Docker') {
+            when {
+                expression {
+                    env.BRANCH_NAME == 'master'
+                  }
+            }
             steps {
                 sh '''
                     docker login harbour.739.net -u="rouslan" -p="50m9FiD3"
